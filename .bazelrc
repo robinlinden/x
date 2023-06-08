@@ -1,0 +1,32 @@
+# Bazel configuration
+# =========================================================
+
+build --enable_platform_specific_config
+coverage --combined_report=lcov
+test --test_output=errors
+test --test_summary=terse
+test --test_verbose_timeout_warnings
+
+# Bazel deprecations
+# =========================================================
+# See: https://docs.bazel.build/versions/main/backward-compatibility.html
+
+build --incompatible_disallow_empty_glob
+build --incompatible_enable_cc_toolchain_resolution
+
+# Compiler configuration
+# =========================================================
+
+build --features=layering_check
+
+build:linux --cxxopt='-std=c++2b'
+
+build:windows --cxxopt='/std:c++latest'
+build:windows --copt='/permissive-' # Conform to the standard.
+build:windows --copt='/Zc:__cplusplus' # Report the real supported C++ version, not just C++98.
+
+
+# Misc configuration
+# =========================================================
+
+try-import %workspace%/.bazelrc.local
