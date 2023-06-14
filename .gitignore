@@ -1,5 +1,5 @@
 # Build artifacts.
-bazel-*
+/bazel-*
 
 # User configuration.
-.bazelrc.local
+/.bazelrc.local
