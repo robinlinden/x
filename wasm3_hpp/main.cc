@@ -1,5 +1,6 @@
 #include <wasm3.h>
 
+#include <cassert>
 #include <cstdint>
 #include <fstream>
 #include <iostream>
@@ -41,6 +42,8 @@ int main(int argc, char **argv) {
         std::cerr << "Unable to parse module: " << err << '\n';
         return 1;
     }
+
+    assert(module != nullptr); // Filled in by m3_ParseModule.
 
     // Ownership of the module is transferred to the runtime here.
     if (auto const *err = m3_LoadModule(runtime.get(), module); err != m3Err_none) {
